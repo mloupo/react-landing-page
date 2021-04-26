@@ -1,0 +1,30 @@
+.carousel-indicators {
+  justify-content: left;
+  top: 75%;
+
+  li {
+    width: 8px;
+    height: 8px;
+    border-radius: 10px;
+    border: none;
+
+    &.active {
+      background-color: map-get($theme-colors, primary);
+    }
+  }
+}
+
+.carousel-caption {
+  top: 40%;
+  text-align: left;
+  right: auto;
+
+  h3 {
+    font-size: 48px;
+    font-weight: bold;
+  }
+
+  p {
+    font-size: 16px;
+  }
+}
