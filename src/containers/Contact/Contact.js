@@ -3,7 +3,7 @@ import ContactImage from "../../assets/img/contact-image.png";
 import { Form, Button, Container, Row, Col, Alert } from "react-bootstrap";
 import { sendEmail } from "../../axios"
 const Contact = () => {
-  const [validated, setValidated] = useState(false)
+  const [validated, setValidated] = useState(false);
   const [formData, setFormData] = useState({})
 
   const [showAlert, setShowAlert] = useState(false)
@@ -11,33 +11,38 @@ const Contact = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Se envio')
     const form = e.currentTarget;
-    console.log(form.checkValidity())
 
-    if (form.checkValidity()) {
-      console.log(formData)
-      console.log('El form fue validado')
-
-      let responseData
+    if (form.checkValidity() === false) {
+      e.stopPropagation();
+    } else {
+      let response
+      
+      setValidated(true);
+      
       try {
-        responseData = await sendEmail(formData);
-        responseData.send ? setShowAlert(true) : setError(true)
+        response = await sendEmail(formData);
 
-        form.reset()
+        if (response.status === 201) {
+          setShowAlert(true)
+          setError(false);
+
+          form.reset()
+
+          setValidated(false);
+
+          setTimeout(()=>{setShowAlert(false)}, 3000)
+        } else {
+          setError(true)
+        }
       } catch(err) {
         setShowAlert(true)
         setError(true)
       }
-
-    } else {
-      console.log('Te olvidaste algo')
     }
   }
 
   const handleOnChange = (e) => {
-    console.log(e.target.name)
-    console.log(e.target.value)
     // Vamos a crear nuestro objeto formData
     // {
     //   name: 'Franco'
@@ -52,7 +57,6 @@ const Contact = () => {
       }
     })
   }
-  console.log(formData)
 
   return (
     <section className="contact">
@@ -82,6 +86,9 @@ const Contact = () => {
                   type='email'
                   placeholder='Email'
                 />
+                <Form.Control.Feedback type="invalid">
+                  Ingrese un email válido
+                </Form.Control.Feedback>
               </Form.Group>
 
               <Form.Group >
@@ -118,9 +125,13 @@ const Contact = () => {
             <img src={ContactImage} alt='Contact' className='d-block w-100' />
           </Col>
         </Row>
+        
+        { showAlert 
+          ? error 
+            ? <Alert variant={'danger'}>Hubo un error al enviar el email </Alert> 
+            : <Alert variant={'success'}>Email enviado con éxito</Alert> 
+          : null }
       </Container>
-
-      { showAlert ? error ? <Alert variant={'danger'}>Hubo un error al enviar el email </Alert> : <Alert variant={'success'}>Email enviado con éxito</Alert> : null }
      
     </section>
   );

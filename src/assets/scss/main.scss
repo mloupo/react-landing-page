@@ -2,5 +2,7 @@
 
 @import "mixin";
 
-@import "../../components/Header/styles.scss";
-@import "../../containers/Contact/styles.scss";
+@import "default";
+@import "../../components/Header/styles";
+@import "../../components/About/styles";
+@import "../../containers/Contact/styles";

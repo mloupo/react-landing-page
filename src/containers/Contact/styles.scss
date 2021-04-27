@@ -46,4 +46,8 @@
       box-shadow: none !important;
     }
   }
+
+  .displayErrors input:invalid {
+    border-color: red;
+  }
 }
