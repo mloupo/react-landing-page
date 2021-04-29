@@ -13,12 +13,12 @@ const Contact = () => {
     e.preventDefault();
     const form = e.currentTarget;
 
+    setValidated(true);
+
     if (form.checkValidity() === false) {
       e.stopPropagation();
     } else {
       let response
-      
-      setValidated(true);
       
       try {
         response = await sendEmail(formData);
