@@ -1,7 +1,7 @@
 import axios from "axios"
 
 const instance = axios.create({
-  baseURL: 'http://joseamietta-laravel-api.herokuapp.com/api/'
+  baseURL: 'https://joseamietta-laravel-api.herokuapp.com/api/'
 })
 
 const sendEmail = async (data) => {
