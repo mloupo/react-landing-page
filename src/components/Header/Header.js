@@ -1,7 +1,26 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Logo from "../../assets/img/top-logo.svg"
 
 const Header = () => {
+  useEffect(() => {
+    document.querySelectorAll('.navbar li >a').forEach(link => {
+      link.addEventListener("click", clickHandler);
+    })
+  }, []);
+
+  function clickHandler(e) {
+    e.preventDefault();
+    const href = this.getAttribute("href");
+    const target = document.querySelector(href);
+
+    if (null == target) {
+      return false;
+    }
+  
+    target.scrollIntoView({
+      behavior: "smooth"
+    });
+  }
   return (
     <header className='header' id="header">
     <div className='container'>
