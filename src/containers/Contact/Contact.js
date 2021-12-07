@@ -59,7 +59,7 @@ const Contact = () => {
   }
 
   return (
-    <section className="contact">
+    <section id="contact" className="contact">
       <Container>
         <Row>
           <Col md={12} lg={5}>
